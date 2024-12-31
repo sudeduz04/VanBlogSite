@@ -1,0 +1,32 @@
+<?php
+
+use App\Http\Controllers\AdminPanelController;
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Route;
+
+
+Route::get('', [HomeController::class, 'show'])->name('front.show');
+
+
+
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+
+    Route::prefix('panel')->group(function () {
+        Route::get('', [AdminPanelController::class, 'index']);
+        Route::get('/addCategory', [AdminPanelController::class, 'addCategory'])->name('panel.addCategory');
+        Route::post('/addCategoryPost', [AdminPanelController::class, 'addCategoryPost'])->name('panel.addCategoryPost');
+        Route::get('/categoryList', [AdminPanelController::class, 'categoryList'])->name('panel.categoryList');
+        Route::get('/addContent',[AdminPanelController::class, 'addContent'])->name('panel.addContent');
+        Route::post('/addContentPost',[AdminPanelController::class, 'addContentPost'])->name('panel.addContentPost');
+        Route::get('/contentList', [AdminPanelController::class, 'contentList'])->name('panel.contentList');
+        Route::get('/updateCategory/{id}', [AdminPanelController::class, 'updateCategory'])->name('panel.updateCategory');
+        Route::post('/updateCategoryPost', [AdminPanelController::class, 'updateCategoryPost'])->name('panel.updateCategoryPost');
+    });
+
+
+});
