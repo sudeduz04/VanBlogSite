@@ -2,7 +2,7 @@
 @section('content')
     <div class="card p-3">
         <div class="card-header">
-            <h4>İçeerikler</h4>
+            <h4>İçerikler</h4>
             <a href="{{route('panel.addContent')}}" class="btn btn-md btn-success">Yeni içerik oluştur</a>
         </div>
 
@@ -13,19 +13,24 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            <th>Kategori Adı</th>
                             <th>İçerik Adı</th>
                             <th>Oluşturulma Tarihi</th>
+                            <th>Güncellenme Tarihi</th>
                             <th>İşlemler</th>
                         </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
                         @foreach($posts as $post)
                             <tr>
+
+                                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$post->category->name}}</strong></td>
                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$post->title}}</strong></td>
                                 <td>{{$post->created_at}}</td>
+                                <td>{{$post->updated_at}}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-info">Güncelle</button>
-                                    <button class ="btn btn-sm btn-danger">Sil</button>
+                                    <a href="{{route('panel.updateContent', $post->id)}}" class="btn btn-sm btn-info">Güncelle</a>
+                                    <a href="{{route('panel.deleteContent', $post->id)}}" class ="btn btn-sm btn-danger">Sil</a>
                                 </td>
                             </tr>
                         @endforeach

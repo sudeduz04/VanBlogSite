@@ -60,7 +60,7 @@ class AdminPanelController extends Controller
 
     public function contentList()
     {
-        $posts = Post::all();
+        $posts = Post::with('category')->get();
         return view('adminPanel.pages.contentList', compact('posts'));
     }
 
@@ -73,8 +73,51 @@ class AdminPanelController extends Controller
 
     public function updateCategoryPost(Request $request)
     {
+        $categoryModel = Category::find($request->categoryId);
+        $categoryModel->name = $request->categoryName;
+        $categoryModel->save();
 
+        return redirect()->route('panel.categoryList')->with('success', 'Kategori başarıyla güncellendi.');
     }
+
+    public function deleteCategory($id)
+    {
+        $categoryModel = Category::find($id);
+
+        if ($categoryModel) {
+            $postModels = Post::where('category_id', $categoryModel->id)->get();
+
+            foreach ($postModels as $post) {
+                $post->delete();
+            }
+        }
+        $categoryModel->delete();
+        return redirect()->route('panel.categoryList')->with('success', 'Kategori başarıyla silindi');
+    }
+
+    public function updateContent($id)
+    {
+        $postModel = Post::find($id);
+        $category = Category::all();
+        return view('adminPanel.pages.updateContent', compact('postModel', 'category'));
+    }
+
+    public function updateContentPost(Request $request)
+    {
+        $postModel = Post::find($request->postId);
+        $postModel->category_id = $request->category_id;
+        $postModel->title = $request->contentTitle;
+        $postModel->content = $request->contents;
+        $postModel->save();
+
+        return redirect()->route('panel.contentList')->with('success', 'İçerik başarıyla güncellendi.');
+    }
+
+    public function deleteContent($id)
+    {
+        $postModel = Post::find($id);
+        $postModel->delete();
+        return redirect()->route('panel.contentList')->with('success', 'Gönderi başarıyla silindi');
+    }
+
 }
-
-

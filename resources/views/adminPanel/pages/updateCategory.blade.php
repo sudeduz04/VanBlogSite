@@ -12,11 +12,14 @@
 
         <form action="{{route('panel.updateCategoryPost')}}" method="POST">
             @csrf
+            <input type="hidden" value="{{$categoryModel->id}}" name="categoryId">
+
             <label for="">Kategori Adı: </label>
-            <input type="text" class="form-control" value="{{$categoryModel->name}}">
+            <input type="text" class="form-control" value="{{$categoryModel->name}}" name="categoryName">
+
+            <button type="submit" class="btn btn-md btn-success mt-2">Güncelle</button>
         </form>
 
-        <button type="submit" class="btn btn-md btn-success mt-2">Güncelle</button>
 
         </div>
 

@@ -17,7 +17,7 @@ Route::middleware([
 ])->group(function () {
 
     Route::prefix('panel')->group(function () {
-        Route::get('', [AdminPanelController::class, 'index']);
+        Route::get('', [AdminPanelController::class, 'index'])->name('panel.index');
         Route::get('/addCategory', [AdminPanelController::class, 'addCategory'])->name('panel.addCategory');
         Route::post('/addCategoryPost', [AdminPanelController::class, 'addCategoryPost'])->name('panel.addCategoryPost');
         Route::get('/categoryList', [AdminPanelController::class, 'categoryList'])->name('panel.categoryList');
@@ -26,6 +26,12 @@ Route::middleware([
         Route::get('/contentList', [AdminPanelController::class, 'contentList'])->name('panel.contentList');
         Route::get('/updateCategory/{id}', [AdminPanelController::class, 'updateCategory'])->name('panel.updateCategory');
         Route::post('/updateCategoryPost', [AdminPanelController::class, 'updateCategoryPost'])->name('panel.updateCategoryPost');
+        Route::get('/deleteCategory/{id}', [AdminPanelController::class, 'deleteCategory'])->name('panel.deleteCategory');
+        Route::get('/updateContent/{id}', [AdminPanelController::class, 'updateContent'])->name('panel.updateContent');
+        Route::post('/updateContentPost', [AdminPanelController::class, 'updateContentPost'])->name('panel.updateContentPost');
+        Route::get('/deleteContent/{id}', [AdminPanelController::class, 'deleteContent'])->name('panel.deleteContent');
+
+
     });
 
 
