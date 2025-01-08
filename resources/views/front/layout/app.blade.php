@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="tr">
 
 <head>
     <title>Trips &mdash; Website Template by Colorlib</title>
@@ -21,7 +21,56 @@
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{asset('front/css/style.css')}}">
 
+    <style>
+        html{
+            scroll-behavior: smooth;
+        }
+        .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .ftco-blocks-cover-1 {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .site-section-cover.overlay {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .site-navbar{
+            padding-bottom: 0;
+            padding-top: 0;
+        }
+
+        .site-navbar .site-logo a img{
+            width: 100px;
+        }
+
+        .category-section {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .special:hover{
+            background-color: #ccb9d1;
+        }
+
+    </style>
 </head>
+
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
@@ -46,8 +95,8 @@
 
                 <div class="col-3 ">
                     <div class="site-logo">
-                        <a href="index.html" class="font-weight-bold">
-                            <img src="images/logo.png" alt="Image" class="img-fluid">
+                        <a href="" class="font-weight-bold">
+                            <img src="{{asset('front/V.png')}}" alt="Image" class="img-fluid">
                         </a>
                     </div>
                 </div>
@@ -60,14 +109,33 @@
 
 
                     <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
-                        <ul class="site-menu main-menu js-clone-nav ml-auto ">
-                            <li class="active"><a href="index.html" class="nav-link">Home</a></li>
-                            <li><a href="about.html" class="nav-link">About</a></li>
-                            <li><a href="trips.html" class="nav-link">Trips</a></li>
-                            <li><a href="blog.html" class="nav-link">Blog</a></li>
-                            <li><a href="contact.html" class="nav-link">Contact</a></li>
+                        <ul class="site-menu main-menu js-clone-nav ml-auto">
+                            <li><a href="{{route('front.show')}}" class="nav-link">Home</a></li>
+                            @foreach($categoryModel as $category)
+                                <li>
+                                    <a href="#{{ strtolower($category->name) }}" class="nav-link special">{{ $category->name }}</a>
+                                </li>
+                            @endforeach
+                            <li><a href="#contact" class="nav-link">Contact</a></li>
+                            @guest
+                                <li><a href="{{ route('login') }}">Giriş Yap</a></li>
+                            @else
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{ Auth::user()->name }}
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" href="{{ route('profile.show') }}">Profil</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Çıkış Yap</a></li>
+                                    </ul>
+                                </li>
+                            @endguest
                         </ul>
                     </nav>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+
                 </div>
 
 
@@ -76,360 +144,7 @@
 
     </header>
 
-    <div class="ftco-blocks-cover-1">
-        <div class="site-section-cover overlay" style="background-image: url('images/hero_1.jpg')">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-md-5" data-aos="fade-right">
-                        <h1 class="mb-3 text-white">Let's Enjoy The Wonders of Nature</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta veritatis in tenetur doloremque, maiores doloribus officia iste. Dolores.</p>
-                        <p class="d-flex align-items-center">
-                            <a href="https://vimeo.com/191947042" data-fancybox class="play-btn-39282 mr-3"><span class="icon-play"></span></a>
-                            <span class="small">Watch the video</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="site-section py-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <div class="heading-39101 mb-5">
-                        <span class="backdrop">Story</span>
-                        <span class="subtitle-39191">Discover Story</span>
-                        <h3>Our Story</h3>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi quae expedita fugiat quo incidunt, possimus temporibus aperiam eum, quaerat sapiente.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos debitis enim a pariatur molestiae.</p>
-                </div>
-                <div class="col-md-6" data-aos="fade-right">
-                    <img src="images/traveler.jpg" alt="Image" class="img-fluid">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="site-section">
-
-        <div class="container">
-            <div class="row justify-content-center text-center">
-                <div class="col-md-7">
-                    <div class="heading-39101 mb-5">
-                        <span class="backdrop text-center">Journey</span>
-                        <span class="subtitle-39191">Journey</span>
-                        <h3>Your Journey Starts Here</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-                    <div class="listing-item">
-                        <div class="listing-image">
-                            <img src="images/img_1.jpg" alt="Image" class="img-fluid">
-                        </div>
-                        <div class="listing-item-content">
-                            <a class="px-3 mb-3 category bg-primary" href="#">$200.00</a>
-                            <h2 class="mb-1"><a href="trip-single.html">Dignissimos debitis</a></h2>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-                    <div class="listing-item">
-                        <div class="listing-image">
-                            <img src="images/img_2.jpg" alt="Image" class="img-fluid">
-                        </div>
-                        <div class="listing-item-content">
-                            <a class="px-3 mb-3 category bg-primary" href="#">$390.00</a>
-                            <h2 class="mb-1"><a href="trip-single.html">Consectetur adipisicing</a></h2>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-                    <div class="listing-item">
-                        <div class="listing-image">
-                            <img src="images/img_3.jpg" alt="Image" class="img-fluid">
-                        </div>
-                        <div class="listing-item-content">
-                            <a class="px-3 mb-3 category bg-primary" href="#">$180.00</a>
-                            <h2 class="mb-1"><a href="trip-single.html">Temporibus aperiam</a></h2>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-                    <div class="listing-item">
-                        <div class="listing-image">
-                            <img src="images/img_4.jpg" alt="Image" class="img-fluid">
-                        </div>
-                        <div class="listing-item-content">
-                            <a class="px-3 mb-3 category bg-primary" href="#">$600.00</a>
-                            <h2 class="mb-1"><a href="trip-single.html">Expedita fugiat</a></h2>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-                    <div class="listing-item">
-                        <div class="listing-image">
-                            <img src="images/img_5.jpg" alt="Image" class="img-fluid">
-                        </div>
-                        <div class="listing-item-content">
-                            <a class="px-3 mb-3 category bg-primary" href="#">$330.00</a>
-                            <h2 class="mb-1"><a href="trip-single.html">Consectetur adipisicing</a></h2>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-                    <div class="listing-item">
-                        <div class="listing-image">
-                            <img src="images/img_6.jpg" alt="Image" class="img-fluid">
-                        </div>
-                        <div class="listing-item-content">
-                            <a class="px-3 mb-3 category bg-primary" href="#">$450.00</a>
-                            <h2 class="mb-1"><a href="trip-single.html">Consectetur Amet</a></h2>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-
-    <div class="site-section">
-
-        <div class="container">
-            <div class="row justify-content-center text-center">
-                <div class="col-md-10">
-                    <div class="heading-39101 mb-5">
-                        <span class="backdrop text-center">Our Team</span>
-                        <span class="subtitle-39191">Amazing Staff</span>
-                        <h3>Meet Our Team</h3>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row">
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="person-29191 text-center">
-                        <img src="images/person_1.jpg" alt="Image" class="img-fluid mb-4">
-                        <div class="px-4">
-                            <h2 class="mb-2">John Doe</h2>
-                            <p class="caption mb-4">Staff</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, maiores? Eos alias fugit eius, repudiandae molestias error</p>
-                            <div class="social_29128 mt-5">
-                                <a href="#"><span class="icon-facebook"></span></a>
-                                <a href="#"><span class="icon-instagram"></span></a>
-                                <a href="#"><span class="icon-twitter"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="person-29191 text-center">
-                        <img src="images/person_2.jpg" alt="Image" class="img-fluid mb-4">
-                        <div class="px-4">
-                            <h2 class="mb-2">Jean Doe</h2>
-                            <p class="caption mb-4">Staff</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, maiores? Eos alias fugit eius, repudiandae molestias error</p>
-                            <div class="social_29128 mt-5">
-                                <a href="#"><span class="icon-facebook"></span></a>
-                                <a href="#"><span class="icon-instagram"></span></a>
-                                <a href="#"><span class="icon-twitter"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="person-29191 text-center">
-                        <img src="images/person_3.jpg" alt="Image" class="img-fluid mb-4">
-                        <div class="px-4">
-                            <h2 class="mb-2">Claire Dormey</h2>
-                            <p class="caption mb-4">Staff</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, maiores? Eos alias fugit eius, repudiandae molestias error</p>
-                            <div class="social_29128 mt-5">
-                                <a href="#"><span class="icon-facebook"></span></a>
-                                <a href="#"><span class="icon-instagram"></span></a>
-                                <a href="#"><span class="icon-twitter"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-
-
-
-
-    <div class="site-section">
-
-        <div class="container">
-
-            <div class="row justify-content-center text-center">
-                <div class="col-md-10">
-                    <div class="heading-39101 mb-5">
-                        <span class="backdrop text-center">Testimonials</span>
-                        <span class="subtitle-39191">Testimony</span>
-                        <h3>Happy Customers</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="owl-carousel slide-one-item">
-                <div class="row">
-                    <div class="col-md-6">
-
-                        <div class="testimonial-39191 d-flex">
-                            <div class="mr-4">
-                                <img src="images/person_1.jpg" alt="Image" class="img-fluid">
-                            </div>
-                            <div>
-                                <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, accusamus, facilis! Placeat praesentium alias porro aperiam facilis accusantium veniam?&rdquo;</blockquote>
-                                <p>&mdash; John Doe</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <div class="testimonial-39191 d-flex">
-                            <div class="mr-4">
-                                <img src="images/person_2.jpg" alt="Image" class="img-fluid">
-                            </div>
-                            <div>
-                                <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, accusamus, facilis! Placeat praesentium alias porro aperiam facilis accusantium veniam?&rdquo;</blockquote>
-                                <p>&mdash; John Doe</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-
-                        <div class="testimonial-39191 d-flex">
-                            <div class="mr-4">
-                                <img src="images/person_1.jpg" alt="Image" class="img-fluid">
-                            </div>
-                            <div>
-                                <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, accusamus, facilis! Placeat praesentium alias porro aperiam facilis accusantium veniam?&rdquo;</blockquote>
-                                <p>&mdash; John Doe</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <div class="testimonial-39191 d-flex">
-                            <div class="mr-4">
-                                <img src="images/person_2.jpg" alt="Image" class="img-fluid">
-                            </div>
-                            <div>
-                                <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, accusamus, facilis! Placeat praesentium alias porro aperiam facilis accusantium veniam?&rdquo;</blockquote>
-                                <p>&mdash; John Doe</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-
-
-    <div class="site-section">
-
-        <div class="container">
-            <div class="row justify-content-center text-center">
-                <div class="col-md-10">
-                    <div class="heading-39101 mb-5">
-                        <span class="backdrop text-center">Blog</span>
-                        <span class="subtitle-39191">Updates</span>
-                        <h3>Our Blog</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="post-entry-1 h-100">
-                        <a href="single.html">
-                            <img src="images/img_1.jpg" alt="Image"
-                                 class="img-fluid">
-                        </a>
-                        <div class="post-entry-1-contents">
-
-                            <h2><a href="single.html">Lorem ipsum dolor sit amet</a></h2>
-                            <span class="meta d-inline-block mb-3">July 17, 2019 <span class="mx-2">by</span> <a href="#">Admin</a></span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores eos soluta, dolore harum molestias consectetur.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="post-entry-1 h-100">
-                        <a href="single.html">
-                            <img src="images/img_2.jpg" alt="Image"
-                                 class="img-fluid">
-                        </a>
-                        <div class="post-entry-1-contents">
-
-                            <h2><a href="single.html">Lorem ipsum dolor sit amet</a></h2>
-                            <span class="meta d-inline-block mb-3">July 17, 2019 <span class="mx-2">by</span> <a href="#">Admin</a></span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores eos soluta, dolore harum molestias consectetur.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="post-entry-1 h-100">
-                        <a href="single.html">
-                            <img src="images/img_3.jpg" alt="Image"
-                                 class="img-fluid">
-                        </a>
-                        <div class="post-entry-1-contents">
-
-                            <h2><a href="single.html">Lorem ipsum dolor sit amet</a></h2>
-                            <span class="meta d-inline-block mb-3">July 17, 2019 <span class="mx-2">by</span> <a href="#">Admin</a></span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores eos soluta, dolore harum molestias consectetur.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="site-section bg-image overlay" style="background-image: url('images/hero_1.jpg')">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-7 text-center">
-                    <h2 class="font-weight-bold text-white">Join and Trip With Us</h2>
-                    <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus ut, doloremque quo molestiae nesciunt officiis veniam, beatae dignissimos!</p>
-                    <p class="mb-0"><a href="#" class="btn btn-primary text-white py-3 px-4">Get In Touch</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
+@yield('content')
     <footer class="site-footer bg-light">
         <div class="container">
             <div class="row">
@@ -437,22 +152,22 @@
                     <h2 class="footer-heading mb-3">Instagram</h2>
                     <div class="row">
                         <div class="col-4 gal_col">
-                            <a href="#"><img src="images/insta_1.jpg" alt="Image" class="img-fluid"></a>
+                            <a href="#"><img src="" alt="Image" class="img-fluid"></a>
                         </div>
                         <div class="col-4 gal_col">
-                            <a href="#"><img src="images/insta_2.jpg" alt="Image" class="img-fluid"></a>
+                            <a href="#"><img src="" alt="Image" class="img-fluid"></a>
                         </div>
                         <div class="col-4 gal_col">
-                            <a href="#"><img src="images/insta_3.jpg" alt="Image" class="img-fluid"></a>
+                            <a href="#"><img src="" alt="Image" class="img-fluid"></a>
                         </div>
                         <div class="col-4 gal_col">
-                            <a href="#"><img src="images/insta_4.jpg" alt="Image" class="img-fluid"></a>
+                            <a href="#"><img src="" alt="Image" class="img-fluid"></a>
                         </div>
                         <div class="col-4 gal_col">
-                            <a href="#"><img src="images/insta_5.jpg" alt="Image" class="img-fluid"></a>
+                            <a href="#"><img src="" alt="Image" class="img-fluid"></a>
                         </div>
                         <div class="col-4 gal_col">
-                            <a href="#"><img src="images/insta_6.jpg" alt="Image" class="img-fluid"></a>
+                            <a href="#"><img src="" alt="Image" class="img-fluid"></a>
                         </div>
                     </div>
                 </div>
@@ -496,23 +211,23 @@
     </footer>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="js/jquery-3.3.1.min.js"></script>
-<script src="js/jquery-migrate-3.0.0.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.sticky.js"></script>
-<script src="js/jquery.waypoints.min.js"></script>
-<script src="js/jquery.animateNumber.min.js"></script>
-<script src="js/jquery.fancybox.min.js"></script>
-<script src="js/jquery.stellar.min.js"></script>
-<script src="js/jquery.easing.1.3.js"></script>
-<script src="js/bootstrap-datepicker.min.js"></script>
-<script src="js/isotope.pkgd.min.js"></script>
-<script src="js/aos.js"></script>
+{{--<script src="{{asset('front/js/jquery-3.3.1.min.js')}}"></script>--}}
+{{--<script src="{{asset('front/js/jquery-migrate-3.0.0.js')}}"></script>--}}
+{{--<script src="{{asset('front/js/popper.min.js')}}"></script>--}}
+{{--<script src="{{asset('front/js/bootstrap.min')}}.js"></script>--}}
+{{--<script src="{{asset('front/js/owl.carousel.min.js')}}"></script>--}}
+{{--<script src="{{asset('front/js/jquery.sticky.js')}}"></script>--}}
+{{--<script src="{{asset('front/js/jquery.waypoints.min.js')}}"></script>--}}
+{{--<script src="{{asset('front/js/jquery.animateNumber.min.js')}}"></script>--}}
+{{--<script src="{{asset('front/js/jquery.fancybox.min.js')}}"></script>--}}
+{{--<script src="{{asset('front/js/jquery.stellar.min.js')}}"></script>--}}
+{{--<script src="{{asset('front/js/jquery.easing.1.3.js')}}"></script>--}}
+{{--<script src="{{asset('front/js/bootstrap-datepicker.min.js')}}"></script>--}}
+{{--<script src="{{asset('front/js/isotope.pkgd.min.js')}}"></script>--}}
 
-<script src="js/main.js"></script>
+{{--<script src="{{asset('front/js/main.js')}}"></script>--}}
 
 </body>
 

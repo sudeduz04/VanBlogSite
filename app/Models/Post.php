@@ -18,4 +18,14 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    // Post'un birden fazla like'ı olabilir
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }

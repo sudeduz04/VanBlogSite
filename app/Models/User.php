@@ -31,6 +31,7 @@ class User extends Authenticatable
         'surname',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -62,4 +63,12 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+    public function hasRole($role)
+    {
+        return $this->role && $this->role->name === $role; // Rol ismine göre kontrol
+    }
 }
