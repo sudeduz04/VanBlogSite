@@ -2,7 +2,7 @@
 <html lang="tr">
 
 <head>
-    <title>Trips &mdash; Website Template by Colorlib</title>
+    <title>Van.com</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -110,14 +110,14 @@
 
                     <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
                         <ul class="site-menu main-menu js-clone-nav ml-auto">
-                            <li><a href="{{route('front.show')}}" class="nav-link">Home</a></li>
+                            <li><a href="{{ route('front.show') }}" class="nav-link">Home</a></li>
                             @foreach($categoryModel as $category)
                                 <li>
-                                    <a href="#{{ strtolower($category->name) }}" class="nav-link special">{{ $category->name }}</a>
+                                    <a href="{{ route('front.show') }}#{{ strtolower($category->name) }}" class="nav-link special">{{ $category->name }}</a>
                                 </li>
                             @endforeach
-                            <li><a href="#contact" class="nav-link">Contact</a></li>
-                            @guest
+
+                        @guest
                                 <li><a href="{{ route('login') }}">Giriş Yap</a></li>
                             @else
                                 <li class="dropdown">
@@ -125,7 +125,9 @@
                                         {{ Auth::user()->name }}
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <li><a class="dropdown-item" href="{{ route('profile.show') }}">Profil</a></li>
+                                        @if(Auth::user()->role_id ==1 )
+                                        <li><a class="dropdown-item" href="{{route('panel.index')}}">Panel</a></li>
+                                        @endif
                                         <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Çıkış Yap</a></li>
                                     </ul>
                                 </li>
@@ -145,70 +147,14 @@
     </header>
 
 @yield('content')
-    <footer class="site-footer bg-light">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <h2 class="footer-heading mb-3">Instagram</h2>
-                    <div class="row">
-                        <div class="col-4 gal_col">
-                            <a href="#"><img src="" alt="Image" class="img-fluid"></a>
-                        </div>
-                        <div class="col-4 gal_col">
-                            <a href="#"><img src="" alt="Image" class="img-fluid"></a>
-                        </div>
-                        <div class="col-4 gal_col">
-                            <a href="#"><img src="" alt="Image" class="img-fluid"></a>
-                        </div>
-                        <div class="col-4 gal_col">
-                            <a href="#"><img src="" alt="Image" class="img-fluid"></a>
-                        </div>
-                        <div class="col-4 gal_col">
-                            <a href="#"><img src="" alt="Image" class="img-fluid"></a>
-                        </div>
-                        <div class="col-4 gal_col">
-                            <a href="#"><img src="" alt="Image" class="img-fluid"></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-8 ml-auto">
-                    <div class="row">
-                        <div class="col-lg-6 ml-auto">
-                            <h2 class="footer-heading mb-4">Quick Links</h2>
-                            <ul class="list-unstyled">
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Testimonials</a></li>
-                                <li><a href="#">Terms of Service</a></li>
-                                <li><a href="#">Privacy</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-6">
-                            <h2 class="footer-heading mb-4">Newsletter</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt odio iure animi ullam quam, deleniti rem!</p>
-                            <form action="#" class="d-flex" class="subscribe">
-                                <input type="text" class="form-control mr-3" placeholder="Email">
-                                <input type="submit" value="Send" class="btn btn-primary">
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="row pt-5 mt-5 text-center">
-                <div class="col-md-12">
-                    <div class="border-top pt-5">
-                        <p>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        </p>
-                    </div>
-                </div>
-
-            </div>
+    <footer class="site-footer bg-light pt-0 pb-5">
+        <div class="container text-center">
+            <p class="">
+                &copy; <script>document.write(new Date().getFullYear());</script> Copyright <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://github.com/sudeduz04" target="_blank">Sude Düz</a>
+            </p>
         </div>
     </footer>
+
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

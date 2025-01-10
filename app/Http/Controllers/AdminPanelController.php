@@ -53,6 +53,11 @@ class AdminPanelController extends Controller
         $postModel->user_id = $user->id;
         $postModel->category_id = $request->category_id;
 
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('posts', 'public');
+        }
+        $postModel->image = $imagePath;
         $postModel->save();
 
         return redirect()->route('panel.contentList')->with('success', 'İçerik başarıyla eklendi.');

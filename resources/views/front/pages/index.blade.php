@@ -23,8 +23,9 @@
     </div>
     <div class="container mt-5">
         @foreach($categoryModel as $category)
+            <h2>{{ $category->name }}</h2>
             <div id="{{ strtolower($category->name) }}" class="category-section mb-5">
-                <h2>{{ $category->name }}</h2>
+
                 @if($category->posts->count() > 0)
                     <ul class="list-group">
                         @foreach($category->posts as $post)
@@ -33,7 +34,7 @@
                         @endforeach
                     </ul>
                 @else
-                    <p>No posts available in this category.</p>
+                    <p>Bu kategoride yayınlanmış yazı bulunmamaktadır.</p>
                 @endif
             </div>
         @endforeach

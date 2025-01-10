@@ -1,7 +1,7 @@
 @extends('adminPanel.layout.app')
 @section('content')
     <h5>İçerik Ekle</h5>
-    <form action="{{route('panel.addContentPost')}}" method="POST">
+    <form action="{{route('panel.addContentPost')}}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="form-group">
@@ -20,7 +20,10 @@
             <label for="exampleFormControlTextarea1">İçerik</label>
             <textarea class="form-control" name="contents"  rows="3"></textarea>
         </div>
-
+        <div class="form-group">
+            <label for="image">Image:</label>
+            <input class="form-control" type="file" name="image">
+        </div>
         <button type="submit" class="btn btn-success mt-2">Kaydet</button>
     </form>
 @endsection
