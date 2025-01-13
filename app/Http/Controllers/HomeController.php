@@ -21,8 +21,8 @@ class HomeController extends Controller
     {
         $post = Post::with(['comments.user', 'likes'])
             ->find($id);
-
-        return view('front.pages.postDetail', compact('post'));
+        $categoryModel = Category::with('posts')->get();
+        return view('front.pages.postDetail', compact('post','categoryModel'));
     }
 
     public function postLike($id)
